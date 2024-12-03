@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: linear-gradient(to right, #0000FF, #FF0000);;
+
+                    background: linear-gradient(to right, #0000FF, #FF0000);
+            
+        }
+        .menu-section {
+            padding: 50px 0;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-img-top {
+            height: 200px; 
+            object-fit: cover;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .quantity-controls button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .quantity-controls button:disabled {
+            background-color: #ccc;
+        }
+        .quantity-controls span {
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .action-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container menu-section">
+    <h1 class="text-center text-4xl font-bold mb-8">Desserts</h1>
+
+    <div class="row mb-4" id="menu-items">
+    </div>
+
+   
+    <div class="action-buttons text-center">
+        <button class="btn btn-primary me-2" onclick="generateBill()">Generate Bill</button>
+        <button class="btn btn-secondary me-2" onclick="goBack()">Back to Main Course</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+    const menuItems = [
+        { id: 1, title: "Choco Lava Cake", description: "", price: 16, imgSrc: "https://t3.ftcdn.net/jpg/08/59/79/78/360_F_859797845_3E9CFG5g0lfAuYlmQdtnm4N9xFQs61UR.jpg" },
+        { id: 2, title: "Tiramisu", description: "", price: 12, imgSrc: "https://img.freepik.com/free-photo/tiramisu-cake-with-cocoa-coffee-black-background_123827-29270.jpg?semt=ais_hybrid" },
+        { id: 3, title: "Cheesecake", description: "", price: 26., imgSrc: "https://img.freepik.com/premium-photo/special-homemade-cheesecake-with-fresh_779468-1212.jpg" },
+        { id: 4, title: "Berry Bliss Parfait", description: "", price: 7, imgSrc: "https://img.freepik.com/premium-photo/berry-bliss-overnight-porridge-with-raspberries-almonds_1117469-106.jpg" },
+        { id: 5, title: "Raspberry Ripple Sorbet", description: "", price: 23, imgSrc: "https://img.freepik.com/premium-photo/double-scoop-raspberry-ripple-blackberry-sorbet-cup_1023514-148.jpg" },
+        { id: 6, title: "Mocha Madness", description: "", price: 17, imgSrc: "https://img.freepik.com/premium-photo/mocha-madness-torte-dark-concrete-background-layered-delight-delicious-fresh-baked-healthy-vegan-tasty-homemade-dessert_1029042-3173.jpg" },
+        { id: 7, title: "Pistachio Paradise Pudding", description: "", price: 31, imgSrc: "https://sweetscapesbakery.com/cdn/shop/files/Fireflywhitechocolateandpistachioblondieslice73403.jpg?v=1731246167" },
+        { id: 8, title: "Almond Joyful Cookies", description: "", price: 27, imgSrc: "https://insanelygoodrecipes.com/wp-content/uploads/2024/08/Almond-Joy-Cookies-1.jpg" },
+        { id: 9, title: "Maple Pecan Pie", description: "", price: 20, imgSrc: "https://celebratingsweets.com/wp-content/uploads/2019/11/Maple-Pecan-Pie-sq-1.jpg" },
+        { id: 10, title: "Red Velvet Indulgence", description: "", price: 19, imgSrc: "https://img.freepik.com/premium-photo/red-velvet-indulgence-birthday-cake_1170794-26765.jpg" },
+        { id: 11, title: "matcha cupcake", description: "", price: 27, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7vhnEVgEVOx9P3KtBWDKjeyfS-0q3AxqheA&s" },
+        { id: 12, title: "Choco-Nutty", description: "", price: 32, imgSrc: "https://i0.wp.com/espressoandlime.com/wp-content/uploads/2024/05/Dark-Choc-Espresso-Biscotti-5.jpeg?resize=700%2C1050&ssl=1" },
+        { id: 13, title: "Cinnamon Roll Delight", description: "", price: 15, imgSrc: "https://images.stockcake.com/public/5/9/7/59795d0b-be25-407a-98a0-11b4595bf90c_large/fresh-baked-cinnamon-stockcake.jpg" },
+        { id: 14, title: "Tropical Fruit Pavlova", description: "", price: 20, imgSrc: "https://i0.wp.com/zoebakes.com/wp-content/uploads/2018/07/2909DA12-82E3-4331-9E1E-E5CBE5262E4E-638x798.jpeg?resize=638%2C798&ssl=1" },
+
+    ];
+
+    function renderMenuItems() {
+        const menuItemsDiv = document.getElementById('menu-items');
+        menuItems.forEach(item => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-md-2 mb-4';
+            colDiv.innerHTML = `
+                <div class="card shadow-lg">
+                    <img src="${item.imgSrc}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.description}</p>
+                        <p class="font-bold text-lg">$${item.price.toFixed(2)}</p>
+                        <div class="quantity-controls">
+                            <button onclick="decreaseQuantity('dessert${item.id}')">-</button>
+                            <span id="dessert${item.id}-quantity">0</span>
+                            <button onclick="increaseQuantity('dessert${item.id}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            menuItemsDiv.appendChild(colDiv);
+        });
+    }
+
+    window.onload = function() {
+        renderMenuItems();
+        for (let i = 1; i <= menuItems.length; i++) {
+            const quantity = localStorage.getItem('dessert' + i) || 0;
+            document.getElementById('dessert' + i + '-quantity').textContent = quantity;
+        }
+    };
+
+    function increaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        quantity.textContent = parseInt(quantity.textContent) + 1;
+        localStorage.setItem(dish, quantity.textContent); 
+    }
+
+    function decreaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        if (parseInt(quantity.textContent) > 0) {
+            quantity.textContent = parseInt(quantity.textContent) - 1;
+            localStorage.setItem(dish, quantity.textContent); 
+        }
+    }
+
+    function generateBill() {
+        window.location.href = "Generatebill.html"; 
+    }
+
+    function goBack() {
+        window.location.href = "Main Course.html"; 
+    }
+</script>
+</body>
+</html> 

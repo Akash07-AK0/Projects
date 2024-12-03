@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: url('https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg') no-repeat center center fixed; 
+            background-size: cover; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #ffffff; 
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+            font-style: italic;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: transparent;
+            color: #ffffff;
+        }
+        .button {
+            background-color: rgba(0, 123, 255, 0.7);
+            color: #ffffff;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .footer-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .footer-link a {
+            color: rgba(0, 123, 255, 0.7);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome Back</h2>
+        <form action="login" method="post">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="button">Login</button>
+        </form>
+        <div class="footer-link">
+            <p>Don't have an account? <a href="Register.html">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>

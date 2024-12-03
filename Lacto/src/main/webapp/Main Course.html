@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: linear-gradient(to right, #0000FF, #FF0000);;
+
+                    background: linear-gradient(to right, #0000FF, #FF0000);
+        }
+        .menu-section {
+            padding: 50px 0;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-img-top {
+            height: 200px; 
+            object-fit: cover; 
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .quantity-controls button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .quantity-controls button:disabled {
+            background-color: #ccc;
+        }
+        .quantity-controls span {
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .action-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container menu-section">
+    <h1 class="text-center text-4xl font-bold mb-8">Main Courses</h1>
+
+    
+    <div class="row mb-4" id="menu-items">
+      
+    </div>
+
+   
+    <div class="action-buttons text-center">
+        <button class="btn btn-primary me-2" onclick="continueAction()">Continue</button>
+        <button class="btn btn-secondary me-2" onclick="backAction()">Back</button>
+        <button class="btn btn-warning" onclick="skipAction()">Skip</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+    const menuItems = [
+        { id: 1, title: "mutton biryani", description: "", price: 16, imgSrc: "https://images.pexels.com/photos/9609863/pexels-photo-9609863.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" },
+        { id: 2, title: "Grilled Chicken", description: "", price: 17, imgSrc: "https://www.spiceindiaonline.com/wp-content/uploads/2021/05/Tandoori-Chicken-20-500x400.jpg" },
+        { id: 3, title: "Salmon Fillet", description: "", price: 18, imgSrc: "https://healthyrecipesblogs.com/wp-content/uploads/2024/05/pan-fried-salmon-1-2024-720x540.jpg" },
+        { id: 4, title: "Pasta Primavera", description: "", price: 19, imgSrc: "https://i.guim.co.uk/img/media/cb683d50e1a7141d4ac294bfa80e8df8a57168b2/604_1535_2669_2669/master/2669.jpg?width=700&quality=85&auto=format&fit=max&s=7f0a5c7fe097072a390ba8752b070fa1" },
+        { id: 5, title: "Lamb Chops", description: "", price: 10, imgSrc: "https://www.laboiteny.com/cdn/shop/articles/RedRubbedBabyLambChopsPg101.jpg?v=1615995080" },
+        { id: 6, title: "Mutton Curry", description: "", price: 11, imgSrc: "https://images.pexels.com/photos/9609846/pexels-photo-9609846.jpeg?cs=srgb&dl=pexels-prabal-9609846.jpg&fm=jpg" },
+        { id: 7, title: "Mushroom Risotto", description: "", price: 24, imgSrc: "https://saltedmint.com/wp-content/uploads/2019/05/Asparagus-Mushroom-Risotto-Topaz-6.jpg" },
+        { id: 8, title: "chicken alfredo", description: "", price: 39, imgSrc: "https://www.shutterstock.com/image-photo/creamy-alfredo-pasta-chicken-mushrooms-600nw-2217614495.jpg" },
+        { id: 9, title: "Stuffed Peppers", description: "", price: 43, imgSrc: "https://img.pikbest.com/origin/10/48/56/043pIkbEsTUuX.jpg!w700wp" },
+        { id: 10, title: "Eggplant Parmesan", description: "", price: 25, imgSrc: "https://media.istockphoto.com/id/1318668940/photo/baked-eggplant.jpg?s=612x612&w=0&k=20&c=5Bf6W1fCze70SQXbN5LZoBiPhg6Si9Db8cz_TPhN0Xs=" },
+        { id: 11, title: "Teriyaki Chicken", description: "", price: 17, imgSrc: "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2024-05-chicken-teriyaki-190%2Fchicken-teriyaki-190-171-horizontal" },
+        { id: 12, title: "Baked Ziti", description: "", price: 11, imgSrc: "https://img.freepik.com/premium-photo/easy-baked-ziti-dinner-recipe-food-photography_1036998-778.jpg" },
+        { id: 13, title: "Thai Noodles", description: "", price: 18, imgSrc: "https://www.jmthaifood.com/wp-content/uploads/2019/12/%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%81%E0%B8%B8%E0%B9%89%E0%B8%87%E0%B8%AA%E0%B8%94-2.jpg" },
+        { id: 14, title: "Chicken Delight", description: "", price: 21, imgSrc: "https://img.freepik.com/premium-photo/firecracker-blaze-inferno-chicken-delight-spicy-chicken-photo_960396-139592.jpg" },
+        { id: 15, title: "Margherita Classic", description: "", price: 10, imgSrc: "https://img.freepik.com/premium-photo/classic-margherita-pizza-with-cheese-popular-cuisine-flavor-fast-food-photography_1020697-436548.jpg" },
+        { id: 16, title: "Veggie Supreme", description: "", price: 22, imgSrc: "https://img.freepik.com/premium-photo/sizzling-sensation-veggie-pizza-supreme-healthy-veggie-pizza-food-picture-photography_1020697-205895.jpg" },
+        { id: 17, title: "Pepperoni Feast", description: "", price: 19, imgSrc: "https://img.freepik.com/premium-photo/sizzling-pepperoni-feast-wooden-background_636537-14198.jpg" },
+        { id: 18, title: "Coconut Curry Fish", description: "", price: 25, imgSrc: "https://www.shutterstock.com/image-photo/kerala-fish-curry-coconut-milk-600nw-2084848537.jpg" },
+
+    ];
+
+    
+    function renderMenuItems() {
+        const menuItemsDiv = document.getElementById('menu-items');
+        menuItems.forEach(item => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-md-2 mb-4';
+            colDiv.innerHTML = `
+                <div class="card shadow-lg">
+                    <img src="${item.imgSrc}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.description}</p>
+                        <p class="font-bold text-lg">$${item.price.toFixed(2)}</p>
+                        <div class="quantity-controls">
+                            <button onclick="decreaseQuantity('mainCourse${item.id}')">-</button>
+                            <span id="mainCourse${item.id}-quantity">0</span>
+                            <button onclick="increaseQuantity('mainCourse${item.id}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            menuItemsDiv.appendChild(colDiv);
+        });
+    }
+
+    
+    window.onload = function() {
+        renderMenuItems();
+        for (let i = 1; i <= menuItems.length; i++) {
+            const quantity = localStorage.getItem('mainCourse' + i) || 0;
+            document.getElementById('mainCourse' + i + '-quantity').textContent = quantity;
+        }
+    };
+
+    function increaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        quantity.textContent = parseInt(quantity.textContent) + 1;
+        localStorage.setItem(dish, quantity.textContent); 
+    }
+
+    function decreaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        if (parseInt(quantity.textContent) > 0) {
+            quantity.textContent = parseInt(quantity.textContent) - 1;
+            localStorage.setItem(dish, quantity.textContent); 
+        }
+    }
+
+    function continueAction() {
+        window.location.href = "Desserts.html";
+    }
+
+    function backAction() {
+        window.location.href = "Appetizer.html"; 
+    }
+
+    function skipAction() {
+        window.location.href = "Desserts.html"; 
+    }
+</script>
+</body>
+</html>

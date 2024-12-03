@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://c4.wallpaperflare.com/wallpaper/1015/628/1024/tomato-hamburger-patty-sandwich-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0); 
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: none; 
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #fff; 
+        }
+        .button {
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 86, 179, 0.8)); 
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 30px; 
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s;
+            position: relative; 
+            overflow: hidden; 
+        }
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 50%; 
+            transition: transform 0.3s;
+            transform: translate(-50%, -50%) scale(0); 
+            z-index: 0; 
+        }
+        .button:hover::before {
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        .button:hover {
+            background: linear-gradient(135deg, rgba(0, 86, 179, 1), rgba(0, 123, 255, 1)); 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+        }
+        .button span {
+            position: relative;
+            z-index: 1; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome!</h2>
+        <a href="Register.html">
+            <button class="button"><span>Sign Up</span></button>
+        </a>
+        <a href="Login.html">
+            <button class="button"><span>Log In</span></button>
+        </a>
+    </div>
+</body>
+</html>

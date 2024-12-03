@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Food Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%; 
+            font-family: Arial, sans-serif;
+            overflow: hidden; 
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+        }
+        .header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .header a:hover {
+            color: #f9a825;
+        }
+        .main {
+            text-align: center;
+            padding: 50px;
+            background: url('https://wallpapers.com/images/featured/food-4k-1pf6px6ryqfjtnyr.jpg') no-repeat center center;
+            background-size: cover; 
+            background-attachment: fixed; 
+            color: #fff;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .main::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); 
+            z-index: 1;
+        }
+        .restaurant-name {
+            font-family: 'Pacifico', cursive;
+            font-size: 70px; 
+            text-transform: uppercase;
+            color: #f9a825;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        .main h1, .main p, .main button {
+            position: relative;
+            z-index: 2;
+        }
+        .main h1 {
+            font-size: 50px;
+        }
+        .main p {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #333;
+            color: #f9a825;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .button:hover {
+            background-color: #f9a825;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">LOGO HERE</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="Menu.html">Menu</a>
+            <a href="#">About Us</a>
+            <a href="#">Contacts</a>
+            <a href="#">Sign Up</a>
+        </nav>
+    </div>
+    <div class="main">
+        <div class="restaurant-name">Retrofying</div> 
+        <h1>Delicious Food Menu</h1>
+        <p>Enjoy a variety of dishes specially prepared for you.</p>
+        <button class="button">Order Now</button>
+    </div>
+</body>
+</html>
+

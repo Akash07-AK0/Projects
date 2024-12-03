@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+        background: linear-gradient(to right, #FF0000, #000000);
+            
+        }
+        .menu-section {
+            padding: 50px 0;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-img-top {
+            height: 200px; 
+            object-fit: cover; 
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .quantity-controls button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .quantity-controls button:disabled {
+            background-color: #ccc;
+        }
+        .quantity-controls span {
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container menu-section">
+    <h1 class="text-center text-4xl font-bold mb-8">Appetizer</h1>
+
+    <div class="row" id="menu-items">
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary me-2" onclick="continueAction()">Continue</button>
+        <button class="btn btn-secondary" onclick="skipAction()">Skip</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Array of menu items
+    const menuItems = [
+        { id: 1, title: "Spicy Shrimp Tacos", description: "", price: 10, imgSrc: "https://images.squarespace-cdn.com/content/v1/555cea73e4b0d431eff10494/1559079384008-PS2EI6O8QHSPKMZGV8C5/Spicy-Shrimp-Tacos-18.jpg" },
+        { id: 2, title: "Garlic Parmesan", description: "", price: 17, imgSrc: "https://cdn.apartmenttherapy.info/image/upload/v1707241712/k/Photo/Recipes/2020-01-garlic-parmesan-wings/2020785IMG_0011-2-2Everyday_recipes_378509-crop.jpg" },
+        { id: 3, title: "Caprese Skewers", description: "", price: 21, imgSrc: "https://hips.hearstapps.com/hmg-prod/images/delish-food-lion-caprese-salad-skewers-still002-1636479836.jpg" },
+        { id: 4, title: "Mini Stuffed Peppers", description: "", price: 19, imgSrc: "https://beautyandthefoodie.com/wp-content/uploads/2018/08/Keto-Taco-Stuffed-Peppers-0102-3cp.jpg" },
+        { id: 5, title: "Crispy Coconut Shrimp", description: "", price: 10, imgSrc: "https://bakesbychichi.com/wp-content/uploads/2021/06/DSC_5661-4-1-819x1024.jpg" },
+        { id: 6, title: "Bacon-Wrapped Dates", description: "", price: 13, imgSrc: "https://www.allrecipes.com/thmb/z_UH9CRADspAEAdhRa-mXa_xLd0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/8367330_Bacon-Wrapped-Dates-with-GoatCheese_France-C_4x3-593a152bdfd4452289a6e979ed4b771c.jpg" },
+        { id: 7, title: "Bruschetta Trio", description: "", price: 25, imgSrc: "https://img.freepik.com/premium-photo/free-photo-bruschetta-trio-with-sliced-mozzarella-tray-looks-yummy_1124573-13751.jpg" },
+        { id: 8, title: "Savory Stuffed Mushrooms", description: "", price: 18, imgSrc: "https://images.mrcook.app/recipe-image/0191c39f-a333-7474-b106-f43e927d8996" },
+        { id: 9, title: "Thai Chicken Satay", description: "", price: 12, imgSrc: "https://i.pinimg.com/1200x/f9/c1/28/f9c12835ef9c1787c6b6b88bcef3f5a6.jpg" },
+        { id: 10, title: "Roasted Red Pepper Hummus", description: "", price: 24, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSljGa-PTHIYMYzJ7bMKFxrr574SFkJzZqZrg&s" },
+        { id: 11, title: "Cheese Charcuterie Board", description: "", price: 12, imgSrc: "https://i.pinimg.com/564x/03/fe/18/03fe18fa5395d3891f45d8cb951bfafd.jpg" },
+        { id: 12, title: "Zucchini Fritters", description: "A", price: 30, imgSrc: "https://iheartumami.com/wp-content/uploads/2016/12/Zucchini-fritters-recipe-I-Heart-Umami-2.jpg" },
+        { id: 13, title: "Buffalo Cauliflower", description: "", price: 39, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbSom7fnnC7Nt6VJIEkE5DDgjsR3RtXTfGaA&s" },
+        { id: 14, title: "Avocad0 Crab Salad", description: "", price: 27, imgSrc: "https://www.kudoskitchenbyrenee.com/wp-content/uploads/2014/04/crab-salad-stuffed-avocado-finish-2-1024x768.jpg" },
+        { id: 15, title: "Spring Rolls", description: "", price: 19, imgSrc: "https://t4.ftcdn.net/jpg/06/01/67/55/360_F_601675527_qWSgGaZA7MBi6btavu3pHWk9imkClRop.jpg" },
+        { id: 16, title: "Salmon Canapés", description: "", price: 40, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkroaMBSPeV5ir2HM2pUC7KbjdyH6qqVjlHg&s" },
+        { id: 17, title: "Crispy Chickpeas", description: "", price: 35, imgSrc: "https://www.glutenfreealchemist.com/wp-content/uploads/2020/12/crunchy-roasted-chickpeas-FI-scaled.jpg" },
+        { id: 18, title: "Garlic Breadsticks", description: "", price: 13, imgSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WbODzQjmL19Ko_qYVmL-dHtxqDUagf5aJw&s" },
+
+        
+
+    ];
+
+    function renderMenuItems() {
+        const menuItemsDiv = document.getElementById('menu-items');
+        menuItems.forEach(item => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-md-2 mb-4';
+            colDiv.innerHTML = `
+                <div class="card shadow-lg">
+                    <img src="${item.imgSrc}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.description}</p>
+                        <p class="font-bold text-lg">$${item.price.toFixed(2)}</p>
+                        <div class="quantity-controls">
+                            <button onclick="decreaseQuantity('appetizer${item.id}')">-</button>
+                            <span id="appetizer${item.id}-quantity">0</span>
+                            <button onclick="increaseQuantity('appetizer${item.id}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            menuItemsDiv.appendChild(colDiv);
+        });
+    }
+
+    window.onload = function() {
+        renderMenuItems();
+        for (let i = 1; i <= menuItems.length; i++) {
+            const quantity = localStorage.getItem('appetizer' + i) || 0;
+            document.getElementById('appetizer' + i + '-quantity').textContent = quantity;
+        }
+    };
+
+    function increaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        quantity.textContent = parseInt(quantity.textContent) + 1;
+        localStorage.setItem(dish, quantity.textContent); 
+    }
+
+    function decreaseQuantity(dish) {
+        let quantity = document.getElementById(dish + '-quantity');
+        if (parseInt(quantity.textContent) > 0) {
+            quantity.textContent = parseInt(quantity.textContent) - 1;
+            localStorage.setItem(dish, quantity.textContent); 
+        }
+    }
+
+    function continueAction() {
+        window.location.href = "Main Course.html";
+    }
+
+    function skipAction() {
+        window.location.href = "Main Course.html";
+    }
+</script>
+</body>
+</html>
