@@ -19,4 +19,4 @@ This project is a user-friendly web application designed to streamline restauran
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Akash07-AK0/Projects
+   https://github.com/Akash07-AK0/Projects
