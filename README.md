@@ -1,5 +1,5 @@
-Titlr: Restaurant Management System Web Application
-Projec Overview: This project is a user-friendly web application designed to streamline restaurant operations and enhance user experiences. It allows users to register, log in, view menus, select food items, place orders, and generate bills. The system ensures seamless user sessions, secure authentication, and resets all user selections upon logout to maintain data integrity and privacy.
+Title: Restaurant Management System Web Application
+Project Overview: This project is a user-friendly web application designed to streamline restaurant operations and enhance user experiences. It allows users to register, log in, view menus, select food items, place orders, and generate bills. The system ensures seamless user sessions, secure authentication, and resets all user selections upon logout to maintain data integrity and privacy.
 Features:
 User Authentication: Secure registration and login processes to protect user data.
 Menu Viewing: Users can browse a comprehensive menu of food items.
